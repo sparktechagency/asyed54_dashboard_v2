@@ -68,46 +68,73 @@ const Blog = () => {
     }
   };
 
-  const config = {
-    readonly: false,
-    placeholder: "Start typing...",
-    height: 600,
-    width: "100%",
-    buttons: [
-      "undo",
-      "redo",
-      "|",
-      "bold",
-      "italic",
-      "underline",
-      "strikethrough",
-      "|",
-      "fontsize",
-      "font",
-      "brush",
-      "|",
-      "align",
-      "outdent",
-      "indent",
-      "|",
-      "ul",
-      "ol",
-      "|",
-      "table",
-      "|",
-      "image",
-      "link",
-      "|",
-      "hr",
-      "eraser",
-      "copyformat",
-      "|",
-      "fullsize",
-      "preview",
-    ],
-    toolbarAdaptive: false,
-    toolbarSticky: true,
-  };
+ const config = {
+  readonly: false,
+  placeholder: "Start typing...",
+  height: 600,
+  width: "100%",
+
+
+  
+  iframeStyle: `
+    body {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
+    }
+
+    table {
+      max-width: 100%;
+      overflow-x: auto;
+      display: block;
+    }
+  `,
+
+  buttons: [
+    "undo",
+    "redo",
+    "|",
+    "bold",
+    "italic",
+    "underline",
+    "strikethrough",
+    "|",
+    "fontsize",
+    "font",
+    "brush",
+    "|",
+    "align",
+    "outdent",
+    "indent",
+    "|",
+    "ul",
+    "ol",
+    "|",
+    "table",
+    "|",
+    "image",
+    "link",
+    "|",
+    "hr",
+    "eraser",
+    "copyformat",
+    "|",
+    "fullsize",
+    "preview",
+  ],
+
+  toolbarAdaptive: false,
+  toolbarSticky: true,
+};
+
 
   const handleAdd = async (values) => {
     setLoading(true);
@@ -261,6 +288,7 @@ const Blog = () => {
         onCancel={() => setOpenAddModal(false)}
         footer={null}
         width={'100%'}
+        
       >
         <h2 className="text-center font-bold text-xl mb-6">+ Add New Blog</h2>
         <Form form={form} layout="vertical" onFinish={handleAdd}>
@@ -295,6 +323,7 @@ const Blog = () => {
               config={config}
               value={content}
               onBlur={(newContent) => setContent(newContent)}
+              
               // tabIndex={1} // optional: enables tab navigation
             />
           </Form.Item>
@@ -327,9 +356,10 @@ const Blog = () => {
         onCancel={() => setOpenEditModal(false)}
         footer={null}
       width={'100%'}
+      
       >
         <h2 className="text-center font-bold text-xl mb-6">Edit Blog</h2>
-        <Form form={form} layout="vertical" onFinish={handleEdit}>
+        <Form  form={form} layout="vertical" onFinish={handleEdit}>
           <Form.Item
             label="Title"
             name="title"
@@ -356,13 +386,15 @@ const Blog = () => {
             </Upload>
           </Form.Item>
 
-          <Form.Item label="Content">
+      <div >
+            <Form.Item label="Content">
             <JoditEditor
               config={config}
               value={content}
               onBlur={(newContent) => setContent(newContent)}
             />
           </Form.Item>
+      </div>
 
           <button
             className={`w-full py-3 rounded text-white flex justify-center items-center gap-2 transition-all ${
